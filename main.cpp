@@ -1,20 +1,29 @@
 #include <stdio.h>
 
-// 関数テンプレート
-// 値の小さい方を返す
-template <typename Type>
-Type Min(Type a, Type b) {
-	return static_cast<Type>(a < b ? a : b);
-}
-// char型のみ例外の処理を作る
-template <>
-char Min<char>(char a, char b) {
-	return printf("数字以外は入力できません\n");
+// 時給を表示、比較する関数
+int Recursive(int a,int b,int c) {
+	// 10時間目で終了
+	if (c > 10) {
+		return 1;
+	}
+	// それぞれの時給を表示する
+	printf("%d時間 時給 : %d カマトゥ : %d\n",c, a,b);
+	// 時給を比較する
+	if (a > b) {
+		printf("通常の時給の方が高い\n\n");
+	} else {
+		printf("カマトゥの時給の方が高い\n\n");
+	}
+	
+	return Recursive(a + 1072,b * 2 - 50,c + 1);
 }
 int main() {
-	printf("%d\n", Min(0, 9));
-	printf("%f\n", Min(62.1f, 24.9f));
-	printf("%lf\n", Min(26.483, 52.0));
-	printf("%c\n", Min('k','r'));
+	// 一般的な時給
+	int pay = 1072;
+	// 再帰的な時給
+	int kamatwu = 100;
+	// 時間
+	int time = 1;
+	Recursive(pay,kamatwu, time);
 	return 0;
 }
