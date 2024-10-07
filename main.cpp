@@ -4,29 +4,18 @@
 #include <ctime>
 #include <string.h>
 #include <windows.h> // Sleep 関数のため
+#include <functional>
 
 // 1から6までのランダムな値を返すサイコロ関数
 int RollDice() {
     return (rand() % 6) + 1;
 }
 
-// コールバック関数の型を定義
-typedef void (*ResultCallback)(int, const char*);
-
-// 偶数か奇数かを判定して正解か不正解かを表示する関数（コールバック）
-void CheckGuess(int result, const char* guess) {
-    const char* correctAnswer = (result % 2 == 0) ? "偶数" : "奇数";
-
+// 指定された秒数待つ関数
+void SetTimeOut(int time) {
     // 3秒間待機
     printf("正解を発表します...\n");
-    Sleep(3000);
-
-    // 予想とサイコロの出目が一致するか確認
-    if (strcmp(guess, correctAnswer) == 0) {
-        printf("正解！ サイコロの出目は %d で %s です。\n", result, correctAnswer);
-    } else {
-        printf("不正解！ サイコロの出目は %d で %s でした。\n", result, correctAnswer);
-    }
+    Sleep(time);
 }
 
 int main() {
@@ -42,11 +31,23 @@ int main() {
     printf("サイコロの出目は「奇数」でしょうか「偶数」でしょうか？\n");
     scanf_s("%9s", guess, (unsigned)_countof(guess));
 
-    // 関数ポインタを宣言して、コールバック関数をセット
-    ResultCallback callback = &CheckGuess;
+    // 3秒間待つ
+    SetTimeOut(3000);
 
-    // 関数ポインタを使ってコールバックを呼び出す
-    (*callback)(result, guess);
+   // ラムダ式を使って入力された値を処理する関数
+    auto handleGuess = [guess,result](const char* correctAnswer) -> void {
+        // 予想とサイコロの出目が一致するか確認
+        if (strcmp(guess, correctAnswer) == 0) {
+            printf("正解！ サイコロの出目は %d で %s です。\n", result, correctAnswer);
+        } else {
+            printf("不正解！ サイコロの出目は %d で %s でした。\n", result, correctAnswer);
+        }
+    };
+    // サイコロの出目に応じて、正解を「奇数」または「偶数」としてラムダに渡す
+    const char* correctAnswer = (result % 2 == 0) ? "偶数" : "奇数";
+
+    // ラムダ式を使って結果を確認
+    handleGuess(correctAnswer);
 
     return 0;
 }
