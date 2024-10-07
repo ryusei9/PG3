@@ -1,29 +1,52 @@
 #include <stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string.h>
+#include <windows.h> // Sleep 関数のため
 
-// 時給を表示、比較する関数
-int Recursive(int a,int b,int c) {
-	// 10時間目で終了
-	if (c > 10) {
-		return 1;
-	}
-	// それぞれの時給を表示する
-	printf("%d時間 時給 : %d カマトゥ : %d\n",c, a,b);
-	// 時給を比較する
-	if (a > b) {
-		printf("通常の時給の方が高い\n\n");
-	} else {
-		printf("カマトゥの時給の方が高い\n\n");
-	}
-	
-	return Recursive(a + 1072,b * 2 - 50,c + 1);
+// 1から6までのランダムな値を返すサイコロ関数
+int RollDice() {
+    return (rand() % 6) + 1;
 }
+
+// コールバック関数の型を定義
+typedef void (*ResultCallback)(int, const char*);
+
+// 偶数か奇数かを判定して正解か不正解かを表示する関数（コールバック）
+void CheckGuess(int result, const char* guess) {
+    const char* correctAnswer = (result % 2 == 0) ? "偶数" : "奇数";
+
+    // 3秒間待機
+    printf("正解を発表します...\n");
+    Sleep(3000);
+
+    // 予想とサイコロの出目が一致するか確認
+    if (strcmp(guess, correctAnswer) == 0) {
+        printf("正解！ サイコロの出目は %d で %s です。\n", result, correctAnswer);
+    } else {
+        printf("不正解！ サイコロの出目は %d で %s でした。\n", result, correctAnswer);
+    }
+}
+
 int main() {
-	// 一般的な時給
-	int pay = 1072;
-	// 再帰的な時給
-	int kamatwu = 100;
-	// 時間
-	int time = 1;
-	Recursive(pay,kamatwu, time);
-	return 0;
+    // 乱数のシードを初期化
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // サイコロを振る
+    int result = RollDice();
+    // 文字列を入れる変数
+    char guess[10];
+
+    // ユーザーに奇数か偶数かを入力させる
+    printf("サイコロの出目は「奇数」でしょうか「偶数」でしょうか？\n");
+    scanf_s("%9s", guess, (unsigned)_countof(guess));
+
+    // 関数ポインタを宣言して、コールバック関数をセット
+    ResultCallback callback = &CheckGuess;
+
+    // 関数ポインタを使ってコールバックを呼び出す
+    (*callback)(result, guess);
+
+    return 0;
 }
