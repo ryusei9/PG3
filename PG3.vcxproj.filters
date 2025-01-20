@@ -18,13 +18,13 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Train.cpp">
+    <ClCompile Include="IShape.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="TamagawaLine.cpp">
+    <ClCompile Include="Circle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="IkegamiLine.cpp">
+    <ClCompile Include="Rectangle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,13 +32,13 @@
     <Text Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Train.h">
+    <ClInclude Include="IShape.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="TamagawaLine.h">
+    <ClInclude Include="Circle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="IkegamiLine.h">
+    <ClInclude Include="Rectangle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

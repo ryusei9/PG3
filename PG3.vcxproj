@@ -128,18 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IkegamiLine.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="IShape.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TamagawaLine.cpp" />
-    <ClCompile Include="Train.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IkegamiLine.h" />
-    <ClInclude Include="TamagawaLine.h" />
-    <ClInclude Include="Train.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="IShape.h" />
+    <ClInclude Include="Rectangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
