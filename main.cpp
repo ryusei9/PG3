@@ -7,19 +7,48 @@
 #include <functional>
 #include "Circle.h"
 #include "Rectangle.h"
-
+#include <list>
+using namespace std;
 int main() {
-	// インスタンス生成
-	Circle circle;
-	Rect rectangle;
+    // 山手線の駅名を英語表記でリストに追加
+    list<const char*> yamanoteLineStations = {
+        "Tokyo", "Kanda", "Akihabara", "Okachimachi", "Ueno", "Uguisudani",
+        "Nippori", "Tabata", "Komagome", "Sugamo",
+        "Otsuka", "Ikebukuro", "Mejiro", "Takadanobaba", "Shin-Okubo",
+        "Shinjuku", "Yoyogi", "Harajuku", "Shibuya", "Ebisu", "Meguro",
+        "Gotanda", "Osaki", "Shinagawa", "Tamachi", "Hamamatsucho",
+        "Shimbashi", "Yurakucho"
+    };
 
-	// サイズを求める
-	circle.Size();
-	rectangle.Size();
+	// 1970年の山手線の駅名を表示
+	printf("1970年\n");
+    for (const auto& station : yamanoteLineStations) {
+        std::cout << station << std::endl;
+    }
+    printf("\n2019年\n");
 
-	// 描画する
-	circle.Draw();
-	rectangle.Draw();
-
+    for (list<const char*>::iterator itr = yamanoteLineStations.begin();itr != yamanoteLineStations.end();++itr) {
+        // 田端の前に西日暮里を入れる
+        if (*itr == "Tabata") {
+			yamanoteLineStations.insert(itr, "Nishi-Nippori");
+			break;
+        }
+    }
+    // リストの内容を表示
+    for (const auto& station : yamanoteLineStations) {
+        std::cout << station << std::endl;
+    }
+    printf("\n2022年\n");
+    for (list<const char*>::iterator itr = yamanoteLineStations.begin();itr != yamanoteLineStations.end();++itr) {
+        // 田町の前に高輪ゲートウェイを入れる
+        if (*itr == "Tamachi") {
+            yamanoteLineStations.insert(itr, "TakanawaGateway");
+            break;
+        }
+    }
+    // リストの内容を表示
+    for (const auto& station : yamanoteLineStations) {
+        std::cout << station << std::endl;
+    }
     return 0;
 }
